@@ -1,0 +1,224 @@
+# ==========================================
+# Leap GEO Platform - Git Ignore Configuration
+# ==========================================
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+credentials.json
+
+# ==========================================
+# Python
+# ==========================================
+# Virtual Environment
+backend/venv/
+backend/.venv/
+venv/
+.venv/
+ENV/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# ==========================================
+# Node.js / Frontend
+# ==========================================
+# Dependencies
+node_modules/
+frontend/node_modules/
+jspm_packages/
+
+# Production Build
+dist/
+frontend/dist/
+build/
+frontend/build/
+
+# Testing
+coverage/
+.nyc_output
+
+# Cache
+.npm
+.eslintcache
+.node_repl_history
+.cache/
+.parcel-cache
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+frontend/test-results/
+frontend/playwright-report/
+
+# ==========================================
+# Databases
+# ==========================================
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# PostgreSQL dumps
+*.sql
+*.dump
+
+# Neo4j
+neo4j/
+
+# MongoDB
+mongodb/
+
+# ==========================================
+# Logs
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ==========================================
+# OS Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ==========================================
+# IDE / Editors
+# ==========================================
+# VS Code
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json.example
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# ==========================================
+# Claude Code
+# ==========================================
+.claude/
+.claude-code/
+
+# ==========================================
+# Docker
+# ==========================================
+# Docker volumes and data
+docker-compose.override.yml
+.dockerignore
+
+# ==========================================
+# Temporary Files
+# ==========================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+tmp/
+temp/
+
+# ==========================================
+# Project-Specific
+# ==========================================
+# Backend specific
+backend/.autocheck.log
+backend/*.log
+
+# Frontend specific
+frontend/.autocheck.log
+frontend/*.log
+
+# Scripts output
+scripts/output/
+scripts/logs/
+
+# Test data
+test-data/
+sample-data/
+
+# Generated documentation
+docs/generated/
+
+# ==========================================
+# Keep These Files (Examples)
+# ==========================================
+!.gitkeep
+!README.md
+!LICENSE

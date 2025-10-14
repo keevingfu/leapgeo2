@@ -1,0 +1,48 @@
+{
+  "name": "Frontend Auto-Check Configuration",
+  "version": "1.0.0",
+  "description": "Automatic verification system for frontend development",
+  "enabled": true,
+  "checks": {
+    "typeCheck": {
+      "enabled": true,
+      "command": "npm run type-check",
+      "description": "TypeScript type checking",
+      "failOnError": true
+    },
+    "build": {
+      "enabled": true,
+      "command": "npm run build",
+      "description": "Production build verification",
+      "failOnError": true
+    },
+    "lint": {
+      "enabled": false,
+      "command": "npm run lint",
+      "description": "ESLint code quality check",
+      "failOnError": false
+    },
+    "healthCheck": {
+      "enabled": true,
+      "command": "npm run health-check",
+      "description": "Development server health check",
+      "failOnError": true,
+      "runOnDemand": true
+    }
+  },
+  "triggers": {
+    "afterInstall": ["typeCheck"],
+    "beforeBuild": ["typeCheck"],
+    "afterBuild": ["healthCheck"],
+    "onDemand": ["typeCheck", "build", "healthCheck"]
+  },
+  "notifications": {
+    "onSuccess": "✅ All checks passed! Project is ready to run.",
+    "onFailure": "❌ Checks failed! Please fix the errors before continuing."
+  },
+  "reporting": {
+    "logFile": ".autocheck.log",
+    "timestampFormat": "ISO",
+    "verbosity": "detailed"
+  }
+}
