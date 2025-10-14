@@ -1,0 +1,60 @@
+# Vercel Ignore - Files to exclude from deployment
+
+# Environment files
+.env
+.env.*
+*.key
+*.pem
+
+# Backend (not deployed to Vercel)
+backend/
+scripts/
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+**/node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Git
+.git/
+.github/
+
+# Tests
+test-results/
+playwright-report/
+frontend/test-results/
+frontend/playwright-report/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Build cache (will be rebuilt)
+frontend/dist/
+dist/
+build/
+
+# Documentation (not needed for runtime)
+*.md
+!README.md
+
+# Temporary
+*.tmp
+*.temp
+tmp/
+temp/
