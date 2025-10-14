@@ -1,0 +1,41 @@
+name: Auto Sync Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.md'
+      - 'CLAUDE.md'
+      - 'HEALTH-CHECK-REPORT.md'
+
+jobs:
+  sync-docs:
+    name: Update Documentation Index
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📝 Generate documentation index
+        run: |
+          echo "# Leap GEO Platform - Documentation Index" > DOCS-INDEX.md
+          echo "" >> DOCS-INDEX.md
+          echo "Last updated: $(date)" >> DOCS-INDEX.md
+          echo "" >> DOCS-INDEX.md
+          echo "## Available Documentation" >> DOCS-INDEX.md
+          echo "" >> DOCS-INDEX.md
+
+          for file in *.md; do
+            if [ "$file" != "DOCS-INDEX.md" ]; then
+              echo "- [$file]($file)" >> DOCS-INDEX.md
+            fi
+          done
+
+      - name: 📤 Commit updated index
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add DOCS-INDEX.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "docs: Update documentation index [skip ci]"
+          git push
