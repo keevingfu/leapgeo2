@@ -52,8 +52,6 @@
     }
   ],
 
-  "ignoreCommand": "node -e \"process.exit(0)\"",
-
   "git": {
     "deploymentEnabled": {
       "main": true
