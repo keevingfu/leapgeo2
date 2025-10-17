@@ -16,7 +16,7 @@ const pages = [
 
 test.describe('GEO Platform Page Inspector', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173');
+    await page.goto('http://localhost:5174');
     await page.waitForLoadState('networkidle');
   });
 

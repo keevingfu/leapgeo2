@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Portal Navigation Test', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173');
+    await page.goto('http://localhost:5174');
     // Wait for Portal to render
     await page.waitForSelector('text=GEO Platform', { timeout: 10000 });
   });

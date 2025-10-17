@@ -45,9 +45,16 @@ async def get_overview(
     """))
     avg_citation_rate = avg_result.fetchone()._mapping['avg_rate']
 
+    # Active projects (status = 'active')
+    active_result = await conn.execute(text("""
+        SELECT COUNT(*) as count FROM projects WHERE id != 'test' AND status = 'active'
+    """))
+    active_projects = active_result.fetchone()._mapping['count']
+
     return {
         "total_projects": total_projects,
         "total_prompts": total_prompts,
         "total_citations": total_citations,
         "avg_citation_rate": float(avg_citation_rate) if avg_citation_rate else 0,
+        "active_projects": active_projects,
     }
