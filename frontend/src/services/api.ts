@@ -87,4 +87,72 @@ export const statsApi = {
   },
 };
 
+// Authentication API interfaces
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+}
+
+export interface UserResponse {
+  id: number;
+  username: string;
+  email: string;
+  full_name: string | null;
+  is_active: boolean;
+  is_admin: boolean;
+  created_at: string;
+  last_login: string | null;
+}
+
+// Authentication API
+export const authApi = {
+  // Login user
+  login: async (credentials: LoginRequest): Promise<LoginResponse> => {
+    const response = await apiClient.post('/auth/login', credentials);
+    return response.data;
+  },
+
+  // Get current user info
+  getCurrentUser: async (token: string): Promise<UserResponse> => {
+    const response = await apiClient.get('/auth/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  // Verify token
+  verifyToken: async (token: string): Promise<boolean> => {
+    try {
+      await apiClient.post('/auth/verify', null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  },
+
+  // Logout
+  logout: async (token: string): Promise<void> => {
+    await apiClient.post('/auth/logout', null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  },
+};
+
+// Set default authorization header
+export const setAuthToken = (token: string | null) => {
+  if (token) {
+    apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete apiClient.defaults.headers.common['Authorization'];
+  }
+};
+
 export default apiClient;

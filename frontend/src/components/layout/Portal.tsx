@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import {
   Home, Brain, FileText, Award, Send, Target,
   Package, ShoppingCart, CreditCard, Truck, BarChart3,
-  Users, Shield, Settings as SettingsIcon, Search, Bell, Menu, X, Activity, Zap, Globe
+  Users, Shield, Settings as SettingsIcon, Search, Bell, Menu, X, Activity, Zap, Globe, LogOut
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 // import BrandFilter, { Brand } from '../common/BrandFilter';
 
 // Import page components
@@ -42,6 +43,7 @@ const Portal: React.FC = () => {
   const [activePage, setActivePage] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
+  const { user, logout } = useAuth();
 
   // Brand filtering state - TEMPORARILY DISABLED
   // const allBrands: Brand[] = [
@@ -197,10 +199,23 @@ const Portal: React.FC = () => {
               <Users size={20} />
             </div>
             {sidebarOpen && (
-              <div>
-                <p className="text-sm font-semibold">Admin User</p>
-                <p className="text-xs text-gray-400">Super Admin</p>
+              <div className="flex-1">
+                <p className="text-sm font-semibold truncate">
+                  {user?.full_name || user?.username || 'User'}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {user?.is_admin ? 'Admin' : 'User'}
+                </p>
               </div>
+            )}
+            {sidebarOpen && (
+              <button
+                onClick={logout}
+                className="p-2 hover:bg-gray-800 rounded transition-colors"
+                title="Logout"
+              >
+                <LogOut size={18} />
+              </button>
             )}
           </div>
         </div>

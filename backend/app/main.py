@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 
 from .config import get_settings
 from .database import init_db, close_db
-from .routers import projects, prompts, citations, stats
+from .routers import projects, prompts, citations, stats, auth
 
 settings = get_settings()
 
@@ -42,6 +42,7 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth.router, prefix="/api/v1", tags=["authentication"])
 app.include_router(projects.router, prefix="/api/v1", tags=["projects"])
 app.include_router(prompts.router, prefix="/api/v1", tags=["prompts"])
 app.include_router(citations.router, prefix="/api/v1", tags=["citations"])
