@@ -15,7 +15,16 @@
     "auto-verify": "bash scripts/auto-verify.sh",
     "postinstall": "echo '✅ Dependencies installed successfully'",
     "prebuild": "npm run type-check",
-    "postdev": "npm run auto-verify"
+    "postdev": "npm run auto-verify",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:optimized": "playwright test tests/citation-tracking-optimized.spec.ts",
+    "test:citations": "playwright test tests/citation-tracking.spec.ts",
+    "test:projects": "playwright test tests/projects.spec.ts",
+    "test:prompts": "playwright test tests/prompt-management.spec.ts",
+    "test:report": "playwright show-report",
+    "perf": "npx ts-node scripts/performance-monitor.ts",
+    "perf:report": "open ./performance-reports/performance-*.html"
   },
   "dependencies": {
     "axios": "^1.12.2",

@@ -129,6 +129,28 @@ export const citationsApi = {
     });
     return response.data;
   },
+
+  // Scan AI platforms for citations
+  scanCitations: async (scanData: {
+    prompt: string;
+    project_id: string;
+    platforms?: string[];
+  }) => {
+    const response = await apiClient.post('/citations/scan', scanData, {
+      timeout: 120000, // 2 minutes timeout for scanning
+    });
+    return response.data;
+  },
+
+  // Scan citations asynchronously (background task)
+  scanCitationsAsync: async (scanData: {
+    prompt: string;
+    project_id: string;
+    platforms?: string[];
+  }) => {
+    const response = await apiClient.post('/citations/scan-async', scanData);
+    return response.data;
+  },
 };
 
 export const statsApi = {

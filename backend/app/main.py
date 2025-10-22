@@ -3,10 +3,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from strawberry.fastapi import GraphQLRouter
 
 from .config import get_settings
 from .database import init_db, close_db
 from .routers import projects, prompts, citations, stats, auth
+from .graphql.schema import schema
 
 settings = get_settings()
 
@@ -47,6 +49,10 @@ app.include_router(projects.router, prefix="/api/v1", tags=["projects"])
 app.include_router(prompts.router, prefix="/api/v1", tags=["prompts"])
 app.include_router(citations.router, prefix="/api/v1", tags=["citations"])
 app.include_router(stats.router, prefix="/api/v1", tags=["statistics"])
+
+# GraphQL router
+graphql_app = GraphQLRouter(schema)
+app.include_router(graphql_app, prefix="/graphql", tags=["graphql"])
 
 
 @app.get("/", tags=["root"])
