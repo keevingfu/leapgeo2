@@ -12,10 +12,31 @@ const apiClient = axios.create({
   },
 });
 
+// Request interceptor to add Authorization header
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 // Response interceptor for error handling
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Handle 401 Unauthorized - token expired or invalid
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      // Optionally redirect to login
+      // window.location.href = '/login';
+    }
     console.error('API Error:', error.response?.data || error.message);
     return Promise.reject(error);
   }
@@ -58,6 +79,37 @@ export const projectsApi = {
   // Delete project
   deleteProject: async (projectId: string) => {
     await apiClient.delete(`/projects/${projectId}`);
+  },
+};
+
+export const promptsApi = {
+  // Get all prompts
+  getPrompts: async (params?: { skip?: number; limit?: number; project_id?: string }) => {
+    const response = await apiClient.get('/prompts', { params });
+    return response.data;
+  },
+
+  // Get prompt by ID
+  getPrompt: async (promptId: number) => {
+    const response = await apiClient.get(`/prompts/${promptId}`);
+    return response.data;
+  },
+
+  // Create new prompt
+  createPrompt: async (promptData: any) => {
+    const response = await apiClient.post('/prompts', promptData);
+    return response.data;
+  },
+
+  // Update prompt
+  updatePrompt: async (promptId: number, promptData: any) => {
+    const response = await apiClient.put(`/prompts/${promptId}`, promptData);
+    return response.data;
+  },
+
+  // Delete prompt
+  deletePrompt: async (promptId: number) => {
+    await apiClient.delete(`/prompts/${promptId}`);
   },
 };
 
